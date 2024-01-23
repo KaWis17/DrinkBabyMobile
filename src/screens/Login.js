@@ -4,14 +4,14 @@ import useAuth from '../firebase/AuthProvider'
 
 const Login = ({ navigation }) => {
 
-  const { setUser } = useAuth();
+  const { signInWithEmail } = useAuth();
   return (
     <SafeAreaView>
       <Text>Login</Text>
 
       <Button
         title='Login'
-        onPress={() => setUser("krzysztof")}
+        onPress={() => signInWithEmail("krzymado@gmail.com", "test123")}
       />
 
       <Button

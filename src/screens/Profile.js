@@ -4,17 +4,17 @@ import useAuth from '../firebase/AuthProvider'
 
 const Profile = () => {
 
-    const { user, setUser } = useAuth();
+    const { user, logout } = useAuth();
 
     return (
         <SafeAreaView className='flex-1 items-center justify-center'>
             {user ? (
                 <>
-                    <Text>{user}</Text>
+                    <Text>{user.email}</Text>
 
                     <Button
                         title='LogOut'
-                        onPress={() => setUser('')}
+                        onPress={() => logout()}
                     />
                 </>
                 
