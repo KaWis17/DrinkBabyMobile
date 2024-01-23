@@ -1,47 +1,73 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import useAuth from '../firebase/AuthProvider'
-import { View, Text } from 'react-native';
-
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import Summary from '../screens/Summary';
 import Home from '../screens/Home';
 import Profile from '../screens/Profile';
+import Login from '../screens/Login';
+import Register from '../screens/Register';
+
+import useAuth from '../firebase/AuthProvider';
 
 const BottomNavigation = () => {
 
-    const Navigation = createBottomTabNavigator();
+    const LoggedNavigation = createBottomTabNavigator();
+    const NotLoggedNavigation = createNativeStackNavigator();
+
     const { user } = useAuth();
+    console.log(user)
 
     return (
        <>
-            {user ? (
-                <Navigation.Navigator 
+            { user ? (
+                <LoggedNavigation.Navigator 
                     screenOptions={{headerShown: false}} 
                     initialRouteName="Home"
                 >
-                    <Navigation.Screen
+
+                    <LoggedNavigation.Screen
                         name='Summary'
                         component={Summary}
                         options={{tabBarIcon: ({ color, size }) => (<Ionicons name="albums-outline" color={color} size={size} />)}}
                     />
-
-                    <Navigation.Screen
+        
+                    <LoggedNavigation.Screen
                         name='Home'
                         component={Home}
                         options={{tabBarIcon: ({ color, size }) => (<Ionicons name="home-outline" color={color} size={size} />)}}
                     />
-
-                    <Navigation.Screen
+        
+                    <LoggedNavigation.Screen
                         name='Profile'
                         component={Profile}
                         options={{tabBarIcon: ({ color, size }) => (<Ionicons name="person-outline" color={color} size={size} />)}}
                     />
-                </Navigation.Navigator>
+    
+                </LoggedNavigation.Navigator>
             ) : (
-                <View className='flex-1 justify-center items-center'>
-                    <Text>Niezalogowany</Text>
-                </View>
+                <NotLoggedNavigation.Navigator 
+                    screenOptions={{headerShown: false}} 
+                    initialRouteName='Login'
+                >
+
+                    <NotLoggedNavigation.Screen
+                        name="Login"
+                        component={Login}
+                    />
+                    
+                    <NotLoggedNavigation.Group
+                        screenOptions={{presentation: 'modal'}}
+                    >
+
+                        <NotLoggedNavigation.Screen
+                            name="Register"
+                            component={Register}
+                        />
+
+                    </NotLoggedNavigation.Group>
+
+                </NotLoggedNavigation.Navigator>
             )}
        </>
     )
