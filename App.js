@@ -1,10 +1,14 @@
-import { Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { AuthProvider } from './src/firebase/AuthProvider';
+import BottomNavigation from './src/navigation/BottomNavigation';
 
 export default function App() {
   return (
-    <View className = "flex-1 items-center justify-center">
-      <Text>Goodbye World!</Text>
-    </View>
+      <NavigationContainer>
+        <AuthProvider>
+          <BottomNavigation />
+        </AuthProvider>
+      </NavigationContainer>
   );
 }
 
