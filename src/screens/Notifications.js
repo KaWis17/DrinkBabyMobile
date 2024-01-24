@@ -3,13 +3,13 @@ import React from 'react'
 
 import Header from '../components/Header'
 
-const Summary = () => {
+const Notifications = () => {
   return (
     <View>
       <Header />
-      <Text>Summary</Text>
+      <Text>Notifications</Text>
     </View>
   )
 }
 
-export default Summary
+export default Notifications
