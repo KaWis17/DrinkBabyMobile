@@ -1,4 +1,4 @@
-import { Text, Button, View, TextInput } from 'react-native'
+import { Text, Button, View } from 'react-native'
 import React, { useState } from 'react'
 
 import InputText from '../components/InputText'
@@ -16,8 +16,8 @@ const Register = ( { navigation }) => {
   const [repeatPassword, setRepeatPassword] = useState('');
 
   return (
-    <View className='flex flex-col justify-around h-full'>
-      <Text className='text-center text-3xl'>Join DrinkBaby today!</Text>
+    <View className='flex flex-col justify-start h-full'>
+      <Text className='text-center text-3xl p-16'>Join DrinkBaby today!</Text>
 
       <View>
 

@@ -1,4 +1,4 @@
-import { View, Text, Button, TextInput } from 'react-native'
+import { View, Text, Button } from 'react-native'
 import React, { useState } from 'react'
 import useAuth from '../firebase/AuthProvider'
 
@@ -11,6 +11,7 @@ const Login = ({ navigation }) => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
 
   return (
     <View className='flex flex-col justify-between h-screen'>

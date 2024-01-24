@@ -8,14 +8,13 @@ const InputText = (props) => {
             onChangeText={(text) => props.setter(text)}
             placeholder={props.placeholder}
             placeholderTextColor="#FFF"
-            autoCapitalize='none'
+            autoCapitalize={(props.isEmail || props.isPassword) ? 'none' : 'words'}
             autoComplete={(props.isEmail) ? 'email' : ((props.isPassword) ? 'current-password' : 'off')}
-            textContentType={(props.isEmail) ? 'username' : ((props.isPassword) ? 'password' : 'none')}
-            inputMode={(props.isEmail) ? 'email' : 'none'}
+            textContentType={(props.isEmail) ? 'username' : 'none'}
+            inputMode={(props.isEmail) ? 'email' : 'text'}
             keyboardType={(props.isEmail) ? 'email-address' : 'default'}
             secureTextEntry={(props.isPassword) ? true : false}
-            
-            className = "rounded-lg self-center p-3 mb-5 text-white bg-[#280274] w-3/5 text-center"
+            className = "rounded-lg self-center p-3 mb-5 text-white border-[#280274] bg-[#3652AD] border-4 w-3/5 text-center"
         />
     )
 }
