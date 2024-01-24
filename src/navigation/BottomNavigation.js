@@ -18,7 +18,6 @@ const BottomNavigation = () => {
 
     const { user } = useAuth();
 
-    console.log(user);
     return (
        <>
             { user ? (

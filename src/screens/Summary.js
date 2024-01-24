@@ -1,11 +1,14 @@
-import { SafeAreaView, Text } from 'react-native'
+import { View, Text } from 'react-native'
 import React from 'react'
+
+import Header from '../components/Header'
 
 const Summary = () => {
   return (
-      <SafeAreaView className='flex-1 items-center justify-center'>
-          <Text>Summary</Text>
-      </SafeAreaView>
+    <View>
+      <Header />
+      <Text>Summary</Text>
+    </View>
   )
 }
 

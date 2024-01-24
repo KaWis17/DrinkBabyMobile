@@ -1,9 +1,10 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 import {    signInWithEmailAndPassword,
             createUserWithEmailAndPassword,
             sendEmailVerification,
             signOut,
+            updateProfile,
         } from "firebase/auth";
 
 import { auth } from './Connection'
@@ -13,6 +14,12 @@ const authContext = createContext({});
 export const AuthProvider = ({ children }) => {
 
     const [user, setUser] = useState(false);
+
+    useEffect(() => {
+        auth.onAuthStateChanged((user) => {
+            setUser(user);
+        })
+    })
       
     const signInWithEmail = (email, password) => {
         signInWithEmailAndPassword(auth, email, password)
@@ -33,12 +40,15 @@ export const AuthProvider = ({ children }) => {
             })
     }
 
-    const signUpWithEmail = (email, password, repeatPassword) => {
+    const signUpWithEmail = (email, password, repeatPassword, name) => {
         if(password !== repeatPassword)
             alert("Password not matching")
         else 
             createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredentials) => {
+                    updateProfile(auth.currentUser, {
+                        displayName: name
+                    })
                     setUser(userCredentials.user);
                     verifyEmail();
                 })
@@ -57,7 +67,6 @@ export const AuthProvider = ({ children }) => {
     const logout = () => {
         signOut(auth)
             .then(() => {
-                console.log("loggedOut")
                 setUser(null);
                 alert("Successfully logged out");
             })

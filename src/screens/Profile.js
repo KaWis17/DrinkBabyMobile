@@ -1,16 +1,19 @@
-import { SafeAreaView, Text, Button } from 'react-native'
+import { View, Text, Button } from 'react-native'
 import React from 'react'
 import useAuth from '../firebase/AuthProvider'
+
+import Header from '../components/Header'
 
 const Profile = () => {
 
     const { user, logout } = useAuth();
 
     return (
-        <SafeAreaView className='flex-1 items-center justify-center'>
+        <View flex flex-col justify-between h-screen>
+            <Header />
             {user ? (
                 <>
-                    <Text>{user.email}</Text>
+                    <Text>{user.displayName}</Text>
 
                     <Button
                         title='LogOut'
@@ -21,7 +24,7 @@ const Profile = () => {
             ) : (
                 <Text>Not logged in</Text>
             )}
-        </SafeAreaView>
+        </View>
     )
 }
 
