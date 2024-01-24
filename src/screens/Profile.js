@@ -9,21 +9,8 @@ const Profile = () => {
     const { user, logout } = useAuth();
 
     return (
-        <View flex flex-col justify-between h-screen>
-            <Header />
-            {user ? (
-                <>
-                    <Text>{user.displayName}</Text>
-
-                    <Button
-                        title='LogOut'
-                        onPress={() => logout()}
-                    />
-                </>
-                
-            ) : (
-                <Text>Not logged in</Text>
-            )}
+        <View>
+            <Header text='Profile' />
         </View>
     )
 }

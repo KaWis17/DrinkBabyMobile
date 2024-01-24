@@ -6,8 +6,7 @@ import Header from '../components/Header'
 const Notifications = () => {
   return (
     <View>
-      <Header />
-      <Text>Notifications</Text>
+      <Header text='Notifications' />
     </View>
   )
 }

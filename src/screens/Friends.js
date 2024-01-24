@@ -1,10 +1,11 @@
 import { View, Text } from 'react-native'
 import React from 'react'
+import Header from '../components/Header'
 
 const Friends = () => {
   return (
     <View>
-      <Text>Friends</Text>
+      <Header text='Friends' />
     </View>
   )
 }
