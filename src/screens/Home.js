@@ -14,10 +14,8 @@ const Home = () => {
     const delayDebounceFn = setTimeout(() => {
       axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${input}`)
         .then(response => {
-          if(response.data.drinks != null){
-            setItems(response.data.drinks);
-            console.log(items);
-          }
+          if(response.data.drinks != null)
+            setItems(response.data.drinks);          
           else
             setItems([]);
         })
