@@ -1,4 +1,4 @@
-import { TextInput } from 'react-native'
+import { TextInput, Keyboard } from 'react-native'
 import React from 'react'
 
 const InputText = (props) => {
@@ -14,6 +14,9 @@ const InputText = (props) => {
             inputMode={(props.isEmail) ? 'email' : 'text'}
             keyboardType={(props.isEmail) ? 'email-address' : 'default'}
             secureTextEntry={(props.isPassword) ? true : false}
+            onEndEditing={() => Keyboard.dismiss()}
+            spellCheck={false}
+            autoCorrect={false}
             className = "rounded-lg self-center p-3 mb-5 text-white border-[#280274] bg-[#3652AD] border-4 w-3/5 text-center"
         />
     )
