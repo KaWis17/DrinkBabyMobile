@@ -53,7 +53,13 @@ export const AuthProvider = ({ children }) => {
                     verifyEmail();
                 })
                 .catch((error) => {
-                    console.log(error)
+                    switch(error.code) {
+                        case "auth/email-already-in-use":
+                            alert("Email already in use")
+                            break;
+                        default:
+                            alert("Unknown error: " + error.code);
+                    }
                 })
     }
 

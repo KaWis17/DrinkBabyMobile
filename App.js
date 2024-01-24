@@ -1,12 +1,12 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { AuthProvider } from './src/firebase/AuthProvider';
-import BottomNavigation from './src/navigation/BottomNavigation';
+import Navigation from './src/navigation/Navigation';
 
 export default function App() {
   return (
       <NavigationContainer>
         <AuthProvider>
-          <BottomNavigation />
+          <Navigation />
         </AuthProvider>
       </NavigationContainer>
   );
