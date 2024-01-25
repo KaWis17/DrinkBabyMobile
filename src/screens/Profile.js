@@ -2,10 +2,9 @@ import { View, Text, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import useAuth from '../firebase/AuthProvider'
 
-
 import Header from '../components/Header'
 import Loader from '../components/Loader'
-import { getUserData } from '../firebase/UserQueries'
+import { getUserData } from '../firebase/queries/UserQueries'
 import UserProfile from '../components/profile/UserProfile'
 
 const Profile = () => {

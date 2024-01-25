@@ -1,5 +1,5 @@
 import { setDoc, doc, serverTimestamp, collection, getDocs, orderBy, limit, query, startAfter } from "firebase/firestore";
-import { firestore } from "./Connection";
+import { firestore } from "../Connection";
 
 export async function createPostInFirestore(
         authorID,

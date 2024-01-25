@@ -1,5 +1,5 @@
 import { setDoc, getDoc, serverTimestamp, doc } from "firebase/firestore";
-import { firestore } from "./Connection";
+import { firestore } from "../Connection";
 
 export async function createUserInFirestore(uid, fullName, email) {
 

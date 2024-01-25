@@ -3,7 +3,7 @@ import Header from '../components/Header'
 import { FlatList, ScrollView, Text, View } from 'react-native'
 import Post from '../components/home/Post'
 import { useScrollToTop } from '@react-navigation/native';
-import { getPostsData } from '../firebase/PostQueries';
+import { getPostsData } from '../firebase/queries/PostQueries';
 
 import Loader from '../components/Loader'
 
