@@ -29,10 +29,23 @@ export async function getUserData(uid, setData) {
     const docRef = doc(firestore, "users", uid);
 
     onSnapshot(docRef, (doc) => {
-        console.log("Uploaded data")
+        console.log("Uploaded user data")
         setData(doc.data())
     })
     
+}
+
+export async function getUserFriendships(uid, setData) {
+
+    const query = query(    collection(firestore, "friendships"),
+                            where("usersMatched", "array-contains", uid),
+                            orderBy("lastMessage.time")
+                        )
+
+    onSnapshot(query, (doc) => {
+        console.log("Updated friends data")
+        setData(doc.data());
+    })
 }
 
 export async function changeProfilePicture(uid) {

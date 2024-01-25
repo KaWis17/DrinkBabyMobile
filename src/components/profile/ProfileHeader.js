@@ -13,7 +13,7 @@ const ProfileHeader = (props) => {
                 {
                     (!props.imageIsLoading) ? (
                         <Image
-                            source={{uri: props.userImage}}
+                            source={(props.userImage) ? {uri: props.userImage} : {uri: 'https://avatar.iran.liara.run/public/boy?username=Ash'}}
                             className='w-full aspect-square rounded-3xl'
                         />
                     ) : (
