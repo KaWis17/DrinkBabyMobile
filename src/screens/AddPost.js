@@ -3,12 +3,12 @@ import React from 'react'
 
 import Header from '../components/Header'
 
-const Notifications = () => {
+const AddPost = () => {
   return (
     <View>
-      <Header text='Notifications' icon='person-outline'/>
+      <Header text='Add post' icon='person-outline'/>
     </View>
   )
 }
 
-export default Notifications
+export default AddPost

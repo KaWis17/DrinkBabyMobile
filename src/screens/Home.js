@@ -45,7 +45,7 @@ const Home = () => {
                       {posts.map(item => (
                         <View 
                           key={item.id}
-                          className='mb-6 bg-red-500'
+                          className='mb-6 px-2'
                         >
                           <Post 
                             author={item.slug}

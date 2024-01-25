@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import Notifications from '../screens/Notifications';
+import AddPost from '../screens/AddPost';
 import Home from '../screens/Home';
 import Profile from '../screens/Profile';
 import Login from '../screens/login_register/Login';
@@ -36,21 +36,21 @@ const Navigation = () => {
                             />
 
                             <LoggedNavigation.Screen
-                                name='Search'
-                                component={Search}
-                                options={{tabBarIcon: ({ color, size }) => (<Ionicons name="search-outline" color={color} size={size} />)}}
-                            />
-    
-                            <LoggedNavigation.Screen
                                 name='Friends'
                                 component={Friends}
                                 options={{tabBarIcon: ({ color, size }) => (<Ionicons name="people-outline" color={color} size={size} />)}}
                             />
+    
+                            <LoggedNavigation.Screen
+                                name='AddPost'
+                                component={AddPost}
+                                options={{tabBarIcon: ({ color, size }) => (<Ionicons name="arrow-up-circle-outline" color={color} size={size} />)}}
+                            />
 
                             <LoggedNavigation.Screen
-                                name='Notifications'
-                                component={Notifications}
-                                options={{tabBarIcon: ({ color, size }) => (<Ionicons name="notifications-outline" color={color} size={size} />)}}
+                                name='Search'
+                                component={Search}
+                                options={{tabBarIcon: ({ color, size }) => (<Ionicons name="search-outline" color={color} size={size} />)}}
                             />
                 
                             <LoggedNavigation.Screen
