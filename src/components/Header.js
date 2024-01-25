@@ -20,7 +20,7 @@ const Header = (props) => {
                     className='flex-row aspect-square justify-center items-center'
                     onPress={() => logout()}
                 >
-                    <Ionicons name="exit-outline" color='#FFF' size={30}/>
+                    <Ionicons name={props.icon} color='#FFF' size={30}/>
                 </TouchableOpacity>
             </SafeAreaView>
         </View>

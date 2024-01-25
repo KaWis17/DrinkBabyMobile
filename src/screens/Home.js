@@ -6,7 +6,7 @@ const Home = () => {
 
   return (
       <>
-        <Header text='DrinkBaby'/>
+        <Header text='DrinkBaby' icon='person-outline'/>
       </>
   )
 }

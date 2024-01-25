@@ -8,6 +8,7 @@ import {    signInWithEmailAndPassword,
         } from "firebase/auth";
 
 import { auth } from './Connection'
+import { createUserInFirestore } from "./UserQueries";
 
 const authContext = createContext({});
 
@@ -51,6 +52,7 @@ export const AuthProvider = ({ children }) => {
                     })
                     setUser(userCredentials.user);
                     verifyEmail();
+                    createUserInFirestore(userCredentials.user.uid, name, email);
                 })
                 .catch((error) => {
                     switch(error.code) {

@@ -5,7 +5,7 @@ import Header from '../components/Header'
 const Search = () => {
   return (
     <View>
-      <Header text='Search'/>
+      <Header text='Search' icon='person-outline'/>
     </View>
   )
 }
