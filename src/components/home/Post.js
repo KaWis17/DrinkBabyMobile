@@ -7,12 +7,12 @@ import ReadMore from '@fawazahmed/react-native-read-more';
 
 const Post = (props) => {
   return (
-    <View className="w-full flex flex-col py-3 border-t-2">
+    <View className="w-full flex flex-col py-3 shadow-2xl bg-[#E9F6FF]">
         {/* Header */}
         <View className='flex flex-row justify-between px-3 mb-2'>
             <View className='flex flex-row items-center'>
                 <Image 
-                    source={props.profileImageSource}
+                    source={{uri: props.profileImageSource}}
                     className='aspect-square h-12 rounded-full'
                 />
                 <Text className='pl-3 text-lg font-bold'>{props.author}</Text>
@@ -28,7 +28,7 @@ const Post = (props) => {
         {/* Photo */}
         <TouchableWithoutFeedback>
             <Image
-                source={props.imageSource}
+                source={{uri: props.imageSource}}
                 className='aspect-square'
             />
         </TouchableWithoutFeedback>
@@ -36,7 +36,7 @@ const Post = (props) => {
         {/* Review */}
         <View className='flex flex-row gap-3 justify-between pt-1 px-3'>
             <Text className='self-center text-lg'>
-                {props.score} score
+                {props.score.toFixed(1)} score
             </Text>
             <View className='flex flex-row grow justify-center'>
                 <Ionicons name="star-outline" color='#000' size={30}/>
