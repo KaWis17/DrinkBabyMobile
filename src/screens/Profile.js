@@ -4,13 +4,12 @@ import useAuth from '../firebase/AuthProvider'
 
 
 import Header from '../components/Header'
-import { getUserData } from '../firebase/UserQueries'
 import Loader from '../components/Loader'
+import { getUserData } from '../firebase/UserQueries'
 
 const Profile = () => {
 
     const { user } = useAuth();
-
     const [userData, setUserData] = useState();
 
     useEffect(() => {getUserData(user.uid, setUserData);}, [])

@@ -1,4 +1,4 @@
-import { Text, View, SafeAreaView, Image, TouchableOpacity } from 'react-native'
+import { Text, View, SafeAreaView, TouchableOpacity } from 'react-native'
 import React from 'react'
 
 import Ionicons from 'react-native-vector-icons/Ionicons';

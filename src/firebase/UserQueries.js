@@ -27,7 +27,7 @@ export async function getUserData(uid, setData) {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) 
-        setData(docSnap.data());
+        return setData(docSnap.data());
     else 
         alert("could not load the data!")
     
