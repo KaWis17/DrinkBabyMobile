@@ -1,70 +1,58 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
-import { ScrollView, Text, View } from 'react-native'
+import { FlatList, ScrollView, Text, View } from 'react-native'
 import Post from '../components/home/Post'
 import { useScrollToTop } from '@react-navigation/native';
+import { getPostsData } from '../firebase/PostQueries';
 
-
-import axios from 'axios'
-
+import Loader from '../components/Loader'
 
 const Home = () => {
 
+  const max = 10;
+
   const [posts, setPosts] = useState([]);
+  const [last, setLast] = useState(null);
 
   const scrollTop = React.useRef(null);
 
   useScrollToTop(scrollTop);
 
   useEffect(() => {
-  
-    axios.get(`https://jsonplaceholder.org/posts`)
-      .then(response => {
-        if(response.data != null)
-          setPosts(response.data);
-        else
-          setItems([]);
-      })
-      .catch(error => {
-        console.error(error);
-    });
-  
+
+    getPostsData(true, max, last, setLast, posts, setPosts)
+
   }, []);
 
   return (
       <>
         <Header text='DrinkBaby' icon='person-outline'/>
-        <ScrollView
-          className='bg-[#E9F6FF]'
-          ref={scrollTop}
-        >
-
+        <View>
         {
-                (posts) ? (
-                    <>
-                      {posts.map(item => (
-                        <View 
-                          key={item.id}
-                          className='mb-6 px-2'
-                        >
-                          <Post 
-                            author={item.slug}
-                            description={item.content}
-                            profileImageSource={item.thumbnail}
-                            imageSource={"https://loremflickr.com/640/480/abstract"}
-                            time={item.publishedAt}
-                            votes={Math.floor(Math.random()*100)}
-                            score={Math.random()*5}
-                          />
-                        </View>
-                      ))}
-                    </>
-                ) : (
-                    <Loader />
-                )
-            }
-          
-        </ScrollView>
+          (posts.length > 0) ? (
+            
+            <FlatList
+              className='bg-[#E9F6FF]'
+              ref={scrollTop}
+              data={posts}
+              renderItem={Post}
+              keyExtractor={post => post._id}
+              onEndReached={async () => {
+                  await getPostsData(false, max, last, setLast, posts, setPosts);
+              }}
+              onEndReachedThreshold={1}
+              ListFooterComponent={<Text className='pb-32 text-center'>The end of Internet</Text>}
+            >
+
+            </FlatList>
+           
+          ) : (
+            <View className='h-full'>
+                <Loader />
+            </View>
+          )
+        }
+        </View>  
       </>
   )
 }
