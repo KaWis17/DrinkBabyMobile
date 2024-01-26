@@ -4,6 +4,7 @@ import { changeProfilePicture } from '../../firebase/queries/UserQueries'
 import Loader from '../Loader'
 
 const ProfileHeader = (props) => {
+
   return (
     <View className='flex flex-col py-5'>
         <Text className='text-center text-2xl'>{props.fullName}</Text>
@@ -11,14 +12,10 @@ const ProfileHeader = (props) => {
 
             <View className='flex-1 flex items-center'>
                 {
-                    (!props.imageIsLoading) ? (
-                        <Image
-                            source={(props.userImage) ? {uri: props.userImage} : {uri: 'https://avatar.iran.liara.run/public/boy?username=Ash'}}
-                            className='w-full aspect-square rounded-3xl'
-                        />
-                    ) : (
-                        <Loader />
-                    )
+                    <Image
+                        source={(props.userImage) ? {uri: props.userImage} : {uri: 'https://avatar.iran.liara.run/public/boy?username=Ash'}}
+                        className='w-full aspect-square rounded-3xl'
+                    />
                 }
             </View>
 

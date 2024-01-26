@@ -1,4 +1,4 @@
-import { ScrollView, View } from 'react-native'
+import { ScrollView, View, Text, FlatList } from 'react-native'
 import React, { useEffect, useState }from 'react'
 import Header from '../components/Header'
 import { useScrollToTop } from '@react-navigation/native';
@@ -20,15 +20,40 @@ const Friends = () => {
     getUserFriendships(user.uid, setFriendships);
   }, [])
 
+  const renderFriend = ({ item }) => (
+    <View className='text-black h-16 w-full'>
+      {
+        (Object.keys(item.users)[0] == user.uid) ? (
+          <Text>{item.users[Object.keys(item.users)[1]]}</Text>
+        ) : (
+          <Text>{item.users[Object.keys(item.users)[0]]}</Text>
+        )
+      }
+    </View>
+  )
+
 
   return (
     <View>
       <Header text='Friends' icon='person-add-outline'/>
         {
           (friendships) ? (
-            <ScrollView>
+            <View>
+              {
+                (friendships.length == 0) ? (
+                  <Text>You have no friends</Text>
+                ) : (
+                  <View className=''>
+                    <FlatList
+                      data={friendships}
+                      renderItem={renderFriend}
+                      keyExtractor={(item) => item.id}
+                    />
+                  </View>
+                )
+              }
 
-            </ScrollView>
+            </View>
           ) : (
             <View className='h-full'>
                 <Loader />
@@ -37,6 +62,7 @@ const Friends = () => {
         }
     </View>
   )
+
 }
 
 export default Friends
