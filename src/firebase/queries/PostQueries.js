@@ -1,35 +1,72 @@
-import { setDoc, doc, serverTimestamp, collection, getDocs, orderBy, limit, query, startAfter } from "firebase/firestore";
-import { firestore } from "../Connection";
+import { setDoc, doc, serverTimestamp, updateDoc, collection, getDocs, orderBy, limit, query, startAfter } from "firebase/firestore";
+import { firestore, storage } from "../Connection";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+
+import { getNameById, getPhotoUrlById, getUserNumberOfPosts } from "./UserQueries";
 
 export async function createPostInFirestore(
-        authorID,
-        author,
+        uid,
         text,
-        imageURL,
-        votes,
-        score
+        imageURL
     ) {
+    {/* Getting necessary information */}
+    const postNumber = await getUserNumberOfPosts(uid) + 1;
+    const userName = await getNameById(uid)
+    const userImage = await getPhotoUrlById(uid);
+    let photoUrl = "none"
+
+    {/* Sending image */}
+
+    if(imageURL) {
+        try {
+            
+            const response = await fetch(imageURL);
+            const blob = await response.blob();
+    
+            const storageRef = ref(storage, "postPictures/" + uid +'_'+ postNumber);
+            const uploadTask = uploadBytesResumable(storageRef, blob);
+    
+            await uploadTask
+            photoUrl = await getDownloadURL(uploadTask.snapshot.ref);
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     try {
-        
-        const docRef = doc(collection(firestore, "posts"));
-        const docData = {
-            authorID: authorID,
-            author: author,
+
+         {/* Performing query */}
+        const docRef1 = doc(firestore, "posts", uid +'_'+ postNumber);
+        const docData1 = {
+            authorID: uid,
+            author: userName,
             text: text,
             createdAt: serverTimestamp(),
-            imageURL: imageURL,
-            votes: votes,
-            score: score,
+            imageURL: photoUrl,
+            authorImageURL: userImage,
+            visible: false
         };
 
-        await setDoc(docRef, docData)
+        await setDoc(docRef1, docData1)
+        
+        {/* Incrementing number of userPosts */}
+        const docRef2 = doc(firestore, "users", uid);
+
+        const docData2 = {
+            numberOfPosts: postNumber
+        };
+
+        await updateDoc(docRef2, docData2)
+
+
 
     } catch(error) {
 
         console.log(error);
 
     }
+    
 }
 
 export async function getPostsData(initialDownload, max, last, setLast, posts, setPosts) {
@@ -39,11 +76,11 @@ export async function getPostsData(initialDownload, max, last, setLast, posts, s
   
         if(initialDownload)
             q = query(  collection(firestore, "posts"),
-                            orderBy('createdAt'),
+                            orderBy('createdAt', "desc"),
                             limit(max))
         else
             q = query(  collection(firestore, "posts"),
-                            orderBy('createdAt'),
+                            orderBy('createdAt', "desc"),
                             startAfter(last),
                             limit(max))
         
@@ -53,7 +90,7 @@ export async function getPostsData(initialDownload, max, last, setLast, posts, s
             _id: doc.id,
             ...doc.data(),
         }));
-        
+                
         setLast(docSnap.docs[docSnap.docs.length-1]);
 
         if(initialDownload)

@@ -12,7 +12,8 @@ export async function createUserInFirestore(uid, fullName, email) {
         const docData = {
             fullName: fullName,
             email: email,
-            createdAt: serverTimestamp()
+            createdAt: serverTimestamp(),
+            numberOfPosts: 0
         };
 
         await setDoc(docRef, docData)
@@ -118,7 +119,7 @@ export async function changeProfilePicture(uid) {
 
 }
 
-async function updatePhotoUrlInFirebase(uid, photoUrl) {
+export async function updatePhotoUrlInFirebase(uid, photoUrl) {
     
     try {
 
@@ -135,7 +136,7 @@ async function updatePhotoUrlInFirebase(uid, photoUrl) {
     }
 }
 
-async function getNameById(uid) {
+export async function getNameById(uid) {
 
     const docRef = doc(firestore, "users", uid);
     const docSnap = await getDoc(docRef);
@@ -145,7 +146,29 @@ async function getNameById(uid) {
     } else {
         return '';
     }
-
 }
 
+export async function getPhotoUrlById(uid) {
+
+    const docRef = doc(firestore, "users", uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+        console.log("TU: " + docSnap.data().imageUri)
+        return docSnap.data().imageUri;
+    }
+
+    return false;
+}
+
+export async function getUserNumberOfPosts(uid) {
+
+    const docRef = doc(firestore, "users", uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) 
+        return docSnap.data().numberOfPosts;
+    
+    return 0;
+}
 

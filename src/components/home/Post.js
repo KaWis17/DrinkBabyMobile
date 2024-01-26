@@ -1,10 +1,11 @@
 import { View, Text, Image, TouchableWithoutFeedback, TouchableOpacity, ViewComponent } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ReadMore from '@fawazahmed/react-native-read-more';
 
 const Post = ({item}) => {
+
 
   return (
     <View className='pb-3 px-2'>
@@ -12,10 +13,18 @@ const Post = ({item}) => {
             {/* Header */}
             <View className='flex flex-row justify-between px-3 mb-2'>
                 <View className='flex flex-row items-center'>
-                    <Image 
-                        source={{uri: item.imageURL}}
-                        className='aspect-square h-12 rounded-full'
-                    />
+                    
+                      {
+                        ((item.authorImageURL)) &&
+                        <Image 
+                            source={{uri: item.authorImageURL}}
+                            className='aspect-square h-12 rounded-full'
+                        />
+                        
+                      }
+                        
+            
+                    
                     <Text className='pl-3 text-lg font-bold'>{item.author}</Text>
                 </View>
 
@@ -27,12 +36,21 @@ const Post = ({item}) => {
             </View>
 
             {/* Photo */}
-            <TouchableWithoutFeedback>
-                <Image
-                    source={{uri: item.imageURL}}
-                    className='aspect-square'
-                />
-            </TouchableWithoutFeedback>
+            {
+                (!(item.imageURL === "none")) ? (
+                    <TouchableWithoutFeedback>
+                        <Image
+                            source={{uri: item.imageURL}}
+                            className='aspect-square'
+                        />
+                    </TouchableWithoutFeedback>
+                ) : (
+                    <Text className='text-lg p-3 text-justify'>
+                        {item.text}
+                    </Text>
+                )
+            }
+           
 
             {/* Review */}
             <View className='flex flex-row gap-3 justify-between pt-1 px-3'>
@@ -52,11 +70,17 @@ const Post = ({item}) => {
             </View>
 
             {/* Description */}
-            <View className='px-3 pt-3'>
-                <ReadMore numberOfLines={3} style={{textAlign: 'justify'}}>
-                    {item.text}
-                </ReadMore>
-            </View>
+            {
+                (!(item.imageURL === "none")) ? (
+                    <View className='px-3 pt-3'>
+                        <ReadMore numberOfLines={3} style={{textAlign: 'justify'}}>
+                            {item.text}
+                        </ReadMore>
+                    </View>
+                ) : (
+                    <></>
+                )
+            }
 
             {/* Comments */}
             <View>
@@ -65,7 +89,6 @@ const Post = ({item}) => {
 
             {/* Footer */}
             <View className='pt-2'>
-                <Text className='text-center font-bold'>{item.createdAt.seconds}</Text>
             </View>
         </View>
 

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import Header from '../components/Header'
-import { FlatList, ScrollView, Text, View } from 'react-native'
+import { FlatList, RefreshControl, Text, View } from 'react-native'
 import Post from '../components/home/Post'
 import { useScrollToTop } from '@react-navigation/native';
 import { getPostsData } from '../firebase/queries/PostQueries';
@@ -17,6 +17,13 @@ const Home = () => {
   const scrollTop = React.useRef(null);
 
   useScrollToTop(scrollTop);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(async () => {
+      setRefreshing(true);
+      await getPostsData(true, max, last, setLast, posts, setPosts)
+      setRefreshing(false)
+  }, []);
 
   useEffect(() => {
 
@@ -37,6 +44,12 @@ const Home = () => {
               data={posts}
               renderItem={Post}
               keyExtractor={post => post._id}
+              refreshControl={
+                <RefreshControl 
+                  refreshing={refreshing} 
+                  onRefresh={onRefresh} 
+                />
+              }
               onEndReached={async () => {
                   await getPostsData(false, max, last, setLast, posts, setPosts);
               }}
