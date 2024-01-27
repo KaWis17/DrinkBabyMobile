@@ -10,7 +10,7 @@ const Header = (props) => {
     const { logout } = useAuth();
 
     return (
-        <View className='bg-[#3652AD]'>
+        <View className='bg-[#3652AD]/95 absolute w-full z-50'>
             <SafeAreaView className='flex flex-row justify-start'>
                 <View className='flex grow p-3 pl-5'>
                     <Text className='text-3xl text-white'>{props.text}</Text>

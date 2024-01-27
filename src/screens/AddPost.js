@@ -78,7 +78,14 @@ const AddPost = ( {navigation} ) => {
           
           <TouchableOpacity
             onPress={() => {
-              createPostInFirestore(user.uid, input, imageLink.assets[0].uri);
+              if(imageLink)
+                createPostInFirestore(user.uid, input, imageLink.assets[0].uri);
+              else
+                createPostInFirestore(user.uid, input, false);
+
+              setInput("")
+              setImageLink(false)
+
               navigation.navigate("Home");
             }}
             className='w-5/6 self-center p-3 mt-16 h-12 rounded-full justify-center bg-[#3652AD]'

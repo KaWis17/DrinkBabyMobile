@@ -13,6 +13,8 @@ import useAuth from '../firebase/AuthProvider';
 import Search from '../screens/Search';
 import Friends from '../screens/Friends';
 
+import { View } from 'react-native'
+
 const Navigation = () => {
 
     const LoggedNavigation = createBottomTabNavigator();
@@ -26,7 +28,16 @@ const Navigation = () => {
                 <>
                     {user.emailVerified ? (
                         <LoggedNavigation.Navigator 
-                            screenOptions={{headerShown: false, tabBarShowLabel: false}} 
+                            screenOptions={{
+                                headerShown: false, 
+                                tabBarShowLabel: false,
+                                tabBarActiveTintColor: 'black',
+                                tabBarInactiveTintColor: 'white',
+                                tabBarStyle: { position: 'absolute' },
+                                tabBarBackground: () => (
+                                   <View className='bg-[#3652AD]/90 z-50 absolute h-full w-full'></View>
+                                )
+                            }} 
                             initialRouteName="Home"
                         >
                             <LoggedNavigation.Screen

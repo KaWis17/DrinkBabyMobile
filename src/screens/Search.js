@@ -7,10 +7,11 @@ const Search = () => {
   const [input, setInput] = useState('');
   const [inputSelected, setInputSelected] = useState(false)
   return (
-    <View>
+    <ScrollView>
+      
       <Header text='Search' icon='person-outline'/>
 
-      <ScrollView className='flex flex-col'>
+      <View className='flex flex-col'>
         <View 
           className={` mt-12 w-5/6 flex justify-center self-center bg-white px-4 h-12 rounded-lg border-2
                       ${(inputSelected ? 'border-[#3652AD]' : 'border-white')}`}
@@ -38,8 +39,8 @@ const Search = () => {
           />
           
         </View>
-      </ScrollView>
-    </View>
+      </View>
+    </ScrollView>
   )
 }
 
