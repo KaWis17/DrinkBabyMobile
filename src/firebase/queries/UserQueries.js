@@ -93,7 +93,7 @@ export async function changeProfilePicture(uid) {
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
         aspect: [1, 1],
-        quality: 1
+        quality: 0.15
     });
 
     if(!result.canceled){

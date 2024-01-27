@@ -6,6 +6,7 @@ import { createPostInFirestore } from '../firebase/queries/PostQueries'
 import useAuth from '../firebase/AuthProvider'
 
 import * as ImagePicker from "expo-image-picker";
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 
 const AddPost = ( {navigation} ) => {
@@ -22,7 +23,7 @@ const AddPost = ( {navigation} ) => {
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
         aspect: [1, 1],
-        quality: 1
+        quality: 0.15
     }));
 
   }
@@ -32,7 +33,7 @@ const AddPost = ( {navigation} ) => {
     <View className='h-full'>
       <Header text='Add post' icon='person-outline'/>
 
-      <ScrollView className='flex flex-col grow'>
+      <ScrollView className='flex flex-col grow '>
 
         <View 
             className={` mt-12 w-5/6 flex justify-center self-center bg-white px-4 h-64 rounded-lg border-2

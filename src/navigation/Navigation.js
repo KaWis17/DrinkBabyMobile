@@ -33,9 +33,8 @@ const Navigation = () => {
                                 tabBarShowLabel: false,
                                 tabBarActiveTintColor: 'black',
                                 tabBarInactiveTintColor: 'white',
-                                tabBarStyle: { position: 'absolute' },
                                 tabBarBackground: () => (
-                                   <View className='bg-[#3652AD]/90 z-50 absolute h-full w-full'></View>
+                                   <View className='bg-[#3652AD]/90 h-full w-full'></View>
                                 )
                             }} 
                             initialRouteName="Home"
