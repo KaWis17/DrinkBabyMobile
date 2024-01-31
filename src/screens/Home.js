@@ -7,7 +7,7 @@ import { getPostsData } from '../firebase/queries/PostQueries';
 
 import Loader from '../components/Loader'
 
-const Home = () => {
+const Home = ( {navigation} ) => {
 
   const max = 10;
 
@@ -33,7 +33,7 @@ const Home = () => {
 
   return (
       <>
-        <Header text='DrinkBaby' icon='person-outline'/>
+        <Header text='DrinkBaby' navigation={navigation} icon='person-outline'/>
         <View>
         {
           (posts.length > 0) ? (

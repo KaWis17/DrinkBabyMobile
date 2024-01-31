@@ -6,7 +6,7 @@ import { createPostInFirestore } from '../firebase/queries/PostQueries'
 import useAuth from '../firebase/AuthProvider'
 
 import * as ImagePicker from "expo-image-picker";
-import { SafeAreaView } from 'react-native-safe-area-context'
+import Button from '../components/Button'
 
 
 const AddPost = ( {navigation} ) => {
@@ -18,6 +18,9 @@ const AddPost = ( {navigation} ) => {
 
   const [imageLink, setImageLink] = useState(false);
 
+  const addPhotoButton = new Button("Add photo", () => addingPhoto(), 'border-button');
+  addPhotoButton.marginTop = 12;
+
   async function addingPhoto() {
     setImageLink(await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -25,7 +28,21 @@ const AddPost = ( {navigation} ) => {
         aspect: [1, 1],
         quality: 0.15
     }));
+  }
 
+  const uploadPostButton = new Button("Upload post", () => addingPost(), 'full-button');
+  uploadPostButton.marginTop = 16;
+
+  function addingPost() {
+    if(imageLink)
+      createPostInFirestore(user.uid, input, imageLink.assets[0].uri);
+    else
+      createPostInFirestore(user.uid, input, false);
+
+    setInput("")
+    setImageLink(false)
+
+    navigation.navigate("Home");
   }
 
   return (
@@ -65,34 +82,11 @@ const AddPost = ( {navigation} ) => {
             
           </View>
 
-            {(imageLink) && ( <Image source={{uri: imageLink.assets[0].uri}} className='aspect-square w-full' />
-)}
+          {(imageLink) && ( <Image source={{uri: imageLink.assets[0].uri}} className='aspect-square w-full' />)}
          
+          {addPhotoButton.render()}
 
-          <TouchableOpacity
-            onPress={() => addingPhoto()}
-            className='w-5/6 self-center p-3 mt-12 rounded-full border-[#3652AD] border-2'
-          >
-            <Text className='text-center text-[#3652AD]'>Add photo</Text>
-          </TouchableOpacity>
-
-          
-          <TouchableOpacity
-            onPress={() => {
-              if(imageLink)
-                createPostInFirestore(user.uid, input, imageLink.assets[0].uri);
-              else
-                createPostInFirestore(user.uid, input, false);
-
-              setInput("")
-              setImageLink(false)
-
-              navigation.navigate("Home");
-            }}
-            className='w-5/6 self-center p-3 mt-16 h-12 rounded-full justify-center bg-[#3652AD]'
-          > 
-              <Text className='text-white text-center font-bold'>Upload post</Text>
-          </TouchableOpacity>
+          {uploadPostButton.render()}
           
       </ScrollView>
 

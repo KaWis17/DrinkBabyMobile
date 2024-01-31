@@ -9,6 +9,28 @@ const Header = (props) => {
 
     const { logout } = useAuth();
 
+    function button() {
+        switch(props.text) {
+            case "DrinkBaby" : 
+                props.navigation.navigate("Profile")
+                break;
+            case "Friends" : 
+                props.navigation.navigate("Profile")
+                break;
+            case "Add post" :
+                props.navigation.navigate("Profile")
+                break;
+            case "Search" :
+                props.navigation.navigate("Profile")
+                break;
+            case "Profile" :
+                logout();
+                break;
+            default :
+                props.navigation.navigate("Profile")
+        }
+    }
+
     return (
         <View className='bg-[#3652AD]/95  w-full z-50'>
             <SafeAreaView className='flex flex-row justify-start'>
@@ -18,7 +40,7 @@ const Header = (props) => {
                 
                 <TouchableOpacity 
                     className='flex-row aspect-square justify-center items-center'
-                    onPress={() => logout()}
+                    onPress={() => button()}
                 >
                     <Ionicons name={props.icon} color='#FFF' size={30}/>
                 </TouchableOpacity>

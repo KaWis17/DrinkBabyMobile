@@ -8,7 +8,7 @@ import {    signInWithEmailAndPassword,
         } from "firebase/auth";
 
 import { auth } from './Connection'
-import { createUserInFirestore, addFriendship } from "./queries/UserQueries";
+import { createUserInFirestore } from "./queries/UserQueries";
 
 const authContext = createContext({});
 

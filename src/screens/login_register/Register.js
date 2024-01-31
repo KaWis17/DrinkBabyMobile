@@ -1,6 +1,7 @@
-import { View, Text, Keyboard, Platform, TextInput, Alert, TouchableOpacity, KeyboardAvoidingView, TouchableWithoutFeedback, SafeAreaView, ScrollView, Button } from 'react-native'
+import { View, Text, Keyboard, Platform, TextInput, TouchableOpacity, KeyboardAvoidingView, TouchableWithoutFeedback, SafeAreaView } from 'react-native'
 import React, { useRef, useState } from 'react'
 import useAuth from '../../firebase/AuthProvider';
+import Button from '../../components/Button';
 
 
 
@@ -24,6 +25,9 @@ const Register = ( { navigation }) => {
   const secondInput = useRef();
   const thirdInput = useRef();
   const fourthInput = useRef();
+
+  const registerButton = new Button('Register', () => signUpWithEmail(email, password, passwordRepeat, fullName) , 'full-button')
+  const goBackToLoginButton = new Button('Go back to login', () => navigation.navigate("Login") , 'border-button')
 
 
   return (
@@ -166,30 +170,15 @@ const Register = ( { navigation }) => {
               
             </View>
 
-            {/* Login button */}
-            <TouchableOpacity
-              onPress={() => signUpWithEmail(email, password, passwordRepeat, fullName)}
-              className='w-5/6 p-3 rounded-full bg-[#3652AD]'
-            > 
-              <Text className='text-white text-center font-bold'>Register</Text>
-            </TouchableOpacity>
+            {registerButton.render()}
           </View>
         </View>
 
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
 
-    {/* Go to login and footer */}
     <View className='pb-8 flex flex-col items-center'>
-        {/* Login button */}
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Login')}
-          className='w-5/6 p-3 rounded-full border-[#3652AD] border-2'
-        >
-          <Text className='text-center text-[#3652AD]'>Go back to login</Text>
-        </TouchableOpacity>
-
-        {/* Footer text */}
+        {goBackToLoginButton.render()}
         <Text className='pt-3'>Created by Krzysztof Wiśniewski</Text>
       </View>
 
